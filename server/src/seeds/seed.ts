@@ -13,3 +13,4 @@ db.once('open', async () => {
   process.exit(0);
 });
 //for testing purposes
+// testing against a local db
