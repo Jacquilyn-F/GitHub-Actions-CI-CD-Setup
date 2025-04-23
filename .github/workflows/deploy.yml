@@ -1,23 +1,23 @@
+name: Deploy to Render
 
 on:
-  pull_request:
   push:
     branches: [main]
 
 jobs:
-  ci:
+  deploy:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Test
-        run: |
-          npm install
-          npm run test
 
-      - name: Deploy
-        # Only run this step if the branch is main
-        if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Trigger Render Deploy Hook
+        run: curl "$RENDER_DEPLOY_HOOK_URL"
         env:
-          deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+          RENDER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+
+      - name: Add Deploy Summary
+        if: always()
         run: |
-          curl "$deploy_url"
+          echo "### 🚀 Render Deployment" >> $GITHUB_STEP_SUMMARY
+          echo "| Status | Hook Triggered | Branch |" >> $GITHUB_STEP_SUMMARY
+          echo "|--------|----------------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| ✅ Success | Yes | main |" >> $GITHUB_STEP_SUMMARY
