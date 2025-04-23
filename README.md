@@ -47,8 +47,8 @@ Ensure you have the following installed and configured:
 
    - Create two YAML workflow files in `.github/workflows/`:
 
-     - `test-on-develop.yml`: Runs Cypress tests on PR to `develop`
-     - `deploy-on-main.yml`: Triggers deployment to Render on merge to `main`
+     - `develop.yml`: Runs Cypress tests on PR to `develop`
+     - `test.yml`: Triggers deployment to Render on merge to `main`
 
    Example secrets to configure:
 
