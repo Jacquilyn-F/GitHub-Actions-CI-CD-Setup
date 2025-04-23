@@ -47,19 +47,21 @@ Ensure you have the following installed and configured:
 
    - Create two YAML workflow files in `.github/workflows/`:
 
-     - `test-on-develop.yml`: Runs Cypress tests on PR to `develop`
-     - `deploy-on-main.yml`: Triggers deployment to Render on merge to `main`
+     - `develop.yml`: Runs Cypress tests on PR to `develop`
+     - `test.yml`: Triggers deployment to Render on merge to `main`
 
    Example secrets to configure:
 
    - `RENDER_DEPLOY_HOOK`
    - `RENDER_API_KEY`
 
-## Walkthrough Video
+## Deployment
 
-Check out the walkthrough video that demonstrates the GitHub Actions pipeline from PR to deployment:
+The application is deployed on Render with a MongoDB Atlas database and can be accessed at the following live URL:
 
-- [Walkthrough Video](https://your-video-link.com)
+- [Live Application](https://github-actions-ci-cd-setup-6wpf.onrender.com)  
+- [GitHub Repository](https://github.com/Jacquilyn-F/GitHub-Actions-CI-CD-Setup)
+
 
 ## Technologies Used
 
