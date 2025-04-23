@@ -12,3 +12,5 @@ db.once('open', async () => {
   console.log('Questions seeded!');
   process.exit(0);
 });
+//for testing purposes
+// testing 

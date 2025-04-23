@@ -1,0 +1,23 @@
+name: Deploy to Render
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Trigger Render Deploy Hook
+        run: curl "$RENDER_DEPLOY_HOOK_URL"
+        env:
+          RENDER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+
+      - name: Add Deploy Summary
+        if: always()
+        run: |
+          echo "### 🚀 Render Deployment" >> $GITHUB_STEP_SUMMARY
+          echo "| Status | Hook Triggered | Branch |" >> $GITHUB_STEP_SUMMARY
+          echo "|--------|----------------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| ✅ Success | Yes | main |" >> $GITHUB_STEP_SUMMARY

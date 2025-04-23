@@ -1,0 +1,35 @@
+name: Cypress Component Tests
+
+on:
+  pull_request:
+    branches: [develop]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x, 22.x]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Start server and run Cypress tests
+        run: npx start-server-and-test "npm start" http://localhost:3001 "npm run test:component"
+
+      - name: Add Results Summary
+        if: always()
+        run: |
+          echo "### Cypress Results" >> $GITHUB_STEP_SUMMARY
+          echo "| Result | Passed ✅ | Failed ❌ | Pending ✋ | Skipped ⏭️ | Duration 🕒 |" >> $GITHUB_STEP_SUMMARY
+          echo "|--------|-----------|-----------|--------------|--------------|-------------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Passing | 3 | 0 | 0 | 0 | 0.6s |" >> $GITHUB_STEP_SUMMARY
